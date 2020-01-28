@@ -7,9 +7,9 @@ class Dual {
 public:
     Dual(ValueType v = 0, ValueType s = 0) : visible(v), hidden(s) {}
 
-    ValueType GetVisible() const { return visible; }
+    ValueType GetVisible() const { return visible; } // vraca vrijednost f(a)
 
-    ValueType GetHidden() const { return hidden; }
+    ValueType GetHidden() const { return hidden; } // vraca vrijednost f'(a)
 
     Dual &operator+=(const Dual &d) {
         visible += d.visible;
@@ -121,9 +121,18 @@ public:
 };
 
 int main() {
-    Dual<double> x(2, 1);
-    Dual<double> d = x * log(x) - 3 / (sin(x * x + 1) - sqrt(x));
-    std::cout << d.GetVisible() << " " << d.GetHidden() << std::endl;
-    std::cout << "HI";
+    {
+        // Test 1
+        Dual<double> x(2, 1);
+        Dual<double> d = x * log(x) - 3 / (sin(x * x + 1) - sqrt(x));
+        std::cout << d.GetVisible() << " " << d.GetHidden() << std::endl;
+    }
+    {
+        //test 2
+        Dual<double> x(2.5, 1);
+        Dual<double> d = (1 + sin(x)) / (log(x)  + cos(x));
+        std::cout << d.GetVisible() << " " << d.GetHidden() << std::endl;
+    }
+    
     return 0;
 }
